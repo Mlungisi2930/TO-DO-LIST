@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Business Solutions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            cursor: none; /* Hide default cursor for mouse trail effect */
+        }
+        
+        /* Mouse trail elements */
+        .cursor-dot {
+            width: 11px;
+            height: 8px;
+            background-color: #18c220;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+        }
+        
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(24, 194, 32, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.2s ease-out;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #1e6617 0%, #1e6617 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: white;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        
+        .menu-toggle span {
+            width: 2rem;
+            height: 0.25rem;
+            background-color: white;
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 6rem 0;
+            text-align: center;
+            background: linear-gradient(rgba(42, 71, 17, 0.8), rgba(37, 252, 134, 0.562)), url("Images/list-do.jpg") no-repeat center center/cover;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        /* Start Button */
+        .start-btn {
+            display: inline-block;
+            background: white;
+            color: green;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .start-btn:hover {
+            background: transparent;
+            color: white;
+            border-color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Content Sections */
+        .section {
+            padding: 5rem 0;
+            scroll-margin-top: 80px; /* Offset for fixed header */
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #6a11cb;
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Text Only Layout */
+        .text-layout {
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .text-layout h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .text-layout p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        /* Text & Image Layout */
+        .text-image-layout {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            background:  white;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .text-content {
+            flex: 1;
+        }
+        
+        .text-content h3 {
+            color: green;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .text-content p {
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+        
+        .image-content {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .image-content img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Footer */
+        footer {
+            background: green;
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #6a11cb;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #6a11cb;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: #384c5f;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: #6a11cb;
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #384c5f;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: row;
+            }
+            
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                height: calc(100vh - 70px);
+                width: 100%;
+                background: linear-gradient(135deg, #18c220 0%, #1e6617 100%);
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in;
+                z-index: 99;
+            }
+            
+            .nav-links.active {
+                transform: translateX(0);
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .text-image-layout {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Mouse trail elements -->
+    <div class="cursor-dot" data-cursor-dot></div>
+    <div class="cursor-outline" data-cursor-outline></div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <span>Task Manager</span>
+            </div>
+            
+            <button class="menu-toggle" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section with Start Button -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Manage Your Tasks With Digital Experience</h1>
+            <p>We Created A To-Do-List Web App To Use To Manager Your Task.</p>
+            <a href="Index.html" class="start-btn">Get Started <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- Text Only Layout Section -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: #1e6617;">Our Features</h2>
+                <p>This app offer a wide range of features to help you manage you tasks.</p>
+            </div>
+            
+            <div class="text-layout">
+                <h3 style="color: #1e6617;">Adding Tasks</h3>
+                <p><li>To add a description to a task, locate the task details screen, find the description field, and enter your text.</li></p>
+                <p><li>You can usually format the description using options like bold, italics, lists, and links. </li></p>
+                  <p><li> Some platforms also allow you to add attachments, checklists, and assignees. </li></p>
+            </div>
+        
+          
+            
+            <div class="text-layout">
+                <h3 style="color: #1e6617;">Deleting Tasks</h3>
+                <p><li>removes them from a list or project, either permanently or to a deleted items area, depending on the application.</li></p>
+            
+                <p><li>The exact process varies by platform, but generally involves selecting the task and choosing a delete or remove option.</li></p>
+        </div>
+          
+            
+            <div class="text-layout">
+                <h3 style="color: #1e6617;">UI User Friendly</h3>
+                <p><li>designed to be easy to understand, navigate, and interact with, making it simple for users to achieve their goals with minimal effort and frustration.</li></p>
+                <p><li>Key elements include clear layouts, intuitive controls, and consistent design patterns, all contributing to a positive user experience. </li></p>
+            </div>
+        
+    </section>
+
+    <!-- Text & Image Layout Section -->
+    <section class="section" style="background-color: #f1f5f9;" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2 style="color: #1e6617;">About Us</h2>
+                <p>Learn more about our company and values</p>
+            </div>
+            
+            <div class="text-image-layout">
+                <div class="text-content">
+                    <h3>Innovation at Our Core</h3>
+                    <p>Founded in 2025, our company has been at the forefront of digital innovation. We believe in pushing boundaries and challenging the status quo to deliver exceptional results for our clients.</p>
+                    <p>Our team of experts brings together diverse skills and perspectives to create comprehensive solutions tailored to your specific needs. We're passionate about technology and its potential to transform businesses.</p>
+                </div>
+                <div class="image-content">
+                    <img src="Images/to.png" alt="Our team working together">
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="section" style=" background: linear-gradient(rgba(42, 71, 17, 0.8), rgba(37, 252, 134, 0.562));   background-position: center center;" id="faq">
+      <div class="container">
+            <div class="section-title">
+                <h2 style="color:white;">Frequently Asked Questions</h2>
+                <p style="color: white;">This app offer a wide range of features to help you manage you tasks.</p>
+            </div>
+            
+            <div class="text-layout">
+                <h3 style="color: #1e6617;">How to use this app</h3>
+                <p><li>To effectively use a to-do list app, focus on creating clear, actionable tasks, organizing them logically, and prioritizing effectively. </li></p>
+                <p><li> Utilize features like due dates, reminders, and subtasks to manage your workload and stay on track.</li> </p>
+            </div>
+        
+          
+            
+            <div class="text-layout">
+                <h3 style="color: green;">Is this app can run on different web browers</h3>
+                <p><li>Yes, most to-do list applications are web-based and can be accessed through various web browsers.</li></p>
+                <p><li>Many apps also offer dedicated mobile apps for convenient access on smartphones and tablets. </li></p>
+            
+        </div>
+          
+            
+            <div class="text-layout">
+                <h3 style="color: #1e6617;">Is the app have allow you to store as many you can items </h3>
+                <p><li>Yes, most to-do list apps are designed to allow you to store a large number of items</li></p>
+                <p><li>The specific capacity may vary by app, but generally, they are built to handle a substantial number of tasks, lists, and projects</li> </p>
+            </div>
+        
+    </section>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>We are a digital agency focused on delivering innovative solutions that drive growth and success for our clients.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#features">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 17 Jules Street Ave, Suite 100</p>
+                    <p><i class="fas fa-phone"></i> 076 40 66951</p>
+                    <p><i class="fas fa-envelope"></i> mvubum26@gmail.com</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Manager Task. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle functionality
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Adjust for header height
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Mouse trail effect
+        const cursorDot = document.querySelector('[data-cursor-dot]');
+        const cursorOutline = document.querySelector('[data-cursor-outline]');
+        
+        if (cursorDot && cursorOutline) {
+            window.addEventListener('mousemove', function(e) {
+                const posX = e.clientX;
+                const posY = e.clientY;
+                
+                cursorDot.style.left = `${posX - 4}px`;
+                cursorDot.style.top = `${posY - 4}px`;
+                
+                cursorOutline.style.left = `${posX - 20}px`;
+                cursorOutline.style.top = `${posY - 20}px`;
+            });
+            
+            // Interactive elements effect
+            const interactiveElements = document.querySelectorAll('a, button, .start-btn, input, .task-item');
+            
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursorDot.style.transform = 'scale(1.5)';
+                    cursorOutline.style.transform = 'scale(1.5)';
+                    cursorOutline.style.borderColor = '#18c220';
+                    cursorOutline.style.backgroundColor = 'rgba(24, 194, 32, 0.1)';
+                });
+                
+                element.addEventListener('mouseleave', () => {
+                    cursorDot.style.transform = 'scale(1)';
+                    cursorOutline.style.transform = 'scale(1)';
+                    cursorOutline.style.borderColor = 'rgba(24, 194, 32, 0.5)';
+                    cursorOutline.style.backgroundColor = 'transparent';
+                });
+            });
+        }
+    </script>
+</body>
+</html>
