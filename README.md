@@ -7,9 +7,9 @@ Check out the live application here:
 👉 https://to-do-list-squirrel-3c2bbe.netlify.app/
 
 ## ✨ Features
-* Add New Tasks: Quickly add tasks with a simple input form
-* Mark Tasks as Complete: Check off completed tasks with visual feedback
-* Delete Tasks: Remove tasks you no longer need
+* Add New Tasks: Quickly add tasks with a simple input form.
+* Mark Tasks as Complete: Check off completed tasks with visual feedback.
+* Delete Tasks: Remove tasks you no longer need.
 * Persistent Storage: Your tasks are saved in local storage and persist between sessions
 * Task Statistics: Track your productivity with task counters
 * Responsive Design: Works seamlessly on desktop and mobile devices
